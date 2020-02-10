@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.chong.mcspczuul.McSpcZuulApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 26.787 s - in com.chong.mcspczuul.McSpcZuulApplicationTests

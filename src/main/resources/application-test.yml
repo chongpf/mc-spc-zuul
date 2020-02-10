@@ -1,0 +1,54 @@
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/,http://localhost:8762/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    status-page-url: http://${spring.cloud.client.ip-address}:${server.port}/swagger-ui.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+zuul:
+  routes:
+    mc-spc-order-service: /api-order/**
+    mc-spc-sales-service: /api-sales/**
+    local:
+      path: /local/**
+      url: forward:/local
+  retryable: true
+
+ribbon:
+  ConnectTimeout: 500
+  ReadTimeout: 1000
+  OkToRetryOnAllOperations: true
+  MaxAutoRetriesNextServer: 2
+  MaxAutoRetries: 2
+
+logging:
+  file:
+    name: C:\work\jusstech\dev\chongstudy\log\mc-spc-zuul.log
+    max-history: 7
+    max-size: 10MB
+  level:
+    root: info
+    com.chong.mcspczuul.filter: debug
+    com.chong.mcspczuul.interceptor: debug
+
+mc-spc-common:
+  testUid: 123456
+  testConfigRepository: ""
+
+mc-spc-zuul:
+  openJwtCheck: false

@@ -1,0 +1,11 @@
+
+spring:
+  cloud:
+    config:
+      label: master
+      profile: pro
+      discovery:
+        enabled: true
+        service-id: mc-spc-config-server
+#      name: guest
+#      password: guest

@@ -1,0 +1,9 @@
+
+spring:
+  application:
+    name: mc-spc-zuul
+  profiles:
+    active: pro
+
+server:
+  port: 8781
