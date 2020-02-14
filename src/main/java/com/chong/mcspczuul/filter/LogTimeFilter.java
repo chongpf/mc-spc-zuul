@@ -21,13 +21,13 @@ public class LogTimeFilter implements Filter {
 
     public void doFilter(ServletRequest var1, ServletResponse var2, FilterChain var3)
             throws IOException, ServletException {
-        logger.info(message21 + DateUtil.getDateTime());
-        logger.info(var1.getParameter("param") + DateUtil.getDateTime());
+//        logger.info(message21 + DateUtil.getDateTime());
+        logger.info("param:"+ var1.getParameter("param"));
 
         var3.doFilter(var1, var2);
-
-        logger.info(message22 + DateUtil.getDateTime());
-        logger.info(var2.getOutputStream().toString() + DateUtil.getDateTime());
+//
+//        logger.info(message22 + DateUtil.getDateTime());
+//        logger.info(var2.getOutputStream().toString() + DateUtil.getDateTime());
     }
 
     public void destroy() {

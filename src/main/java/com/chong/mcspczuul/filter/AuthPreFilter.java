@@ -30,8 +30,11 @@ public class AuthPreFilter extends ZuulFilter {
 
     @Override
     public boolean shouldFilter() {
-        String shouldFilter = (String)RequestContext.getCurrentContext().get("shouldFilter");
-        return StringUtils.isBlank(shouldFilter)||Boolean.parseBoolean(shouldFilter);
+        boolean result = true;
+        if(RequestContext.getCurrentContext().containsKey("shouldFilter")){
+            result = (boolean)RequestContext.getCurrentContext().get("shouldFilter");
+        }
+        return result;
     }
 
     @Override
@@ -58,6 +61,7 @@ public class AuthPreFilter extends ZuulFilter {
                 //直接命中白名单api
                 if (whiteApiList.contains(context.getRequest().getRequestURI())) {
                     logger.info("符合白名单列表，通过认证:" + context.getRequest().getRequestURI());
+                    context.set("shouldFilter",false);
                     return null;
                 }
                 //通过正则表达式匹配path api.如/order/{orderId}
@@ -68,6 +72,7 @@ public class AuthPreFilter extends ZuulFilter {
                     Matcher matcher = pattern.matcher(context.getRequest().getRequestURI());
                     if (matcher.matches()) {
                         logger.info("符合白名单列表，通过认证:" + context.getRequest().getRequestURI());
+                        context.set("shouldFilter",false);
                         return null;
                     }
                 }

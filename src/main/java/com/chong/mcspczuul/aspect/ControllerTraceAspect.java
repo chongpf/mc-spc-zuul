@@ -6,10 +6,12 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
 @Aspect
+@Component
 public class ControllerTraceAspect {
     private final static Logger logger = LoggerFactory.getLogger(ControllerTraceAspect.class);
     private String message1 = "@Before is run.";
@@ -25,20 +27,18 @@ public class ControllerTraceAspect {
 
     @Before(value ="pointCut()")
     public void before(JoinPoint joinPoint){
-        logger.info(message1);
-        logger.info("signature:"+joinPoint.getSignature());
-        logger.info("args:"+ Arrays.asList(joinPoint.getArgs()));
+//        logger.info(message1);
+//        logger.info("signature:"+joinPoint.getSignature());
+//        logger.info("args:"+ Arrays.asList(joinPoint.getArgs()));
     }
 
     @Around("pointCut()")
     public Object aroud(ProceedingJoinPoint joinPoint){
         Object obj = null;
         try {
-            logger.info(message21);
-            logger.info("signature:"+joinPoint.getSignature());
-            logger.info("args:"+ Arrays.asList(joinPoint.getArgs()));
+            logger.info("enter controller trace aspect");
             obj = joinPoint.proceed();
-            logger.info(message22);
+            logger.info("leave controller trace aspect");
         }catch (Throwable throwable){
             throwable.printStackTrace();
         }
@@ -46,16 +46,16 @@ public class ControllerTraceAspect {
     }
     @After(value = "pointCut()")
     public void after(JoinPoint joinPoint){
-        logger.info(message5);
-        logger.info("signature:"+joinPoint.getSignature());
-        logger.info("args:"+ Arrays.asList(joinPoint.getArgs()));
+//        logger.info(message5);
+//        logger.info("signature:"+joinPoint.getSignature());
+//        logger.info("args:"+ Arrays.asList(joinPoint.getArgs()));
     }
 
     @AfterReturning(value = "pointCut()",returning = "responseData")
     public void afterReturning(JoinPoint joinPoint, ResponseData responseData){
-        logger.info(message3);
-        logger.info("signature:"+joinPoint.getSignature());
-        logger.info("args:"+ Arrays.asList(joinPoint.getArgs()));
+//        logger.info(message3);
+//        logger.info("signature:"+joinPoint.getSignature());
+//        logger.info("args:"+ Arrays.asList(joinPoint.getArgs()));
     }
 
     @AfterThrowing(value = "pointCut()",throwing = "ex")

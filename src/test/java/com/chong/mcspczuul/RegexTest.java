@@ -13,14 +13,12 @@ public class RegexTest {
 
     public static void main(String[] args) {
         // testStudyRegex();
+        // testRegexPath();
 
-        String whiteApi = "/order/{orderId}";
-        String requestURI = "/order/1";
-        String regex = whiteApi.replaceAll("\\/\\{[a-zA-Z0-9]+\\}", "\\/[a-zA-Z0-9]+");
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(requestURI);
-        if (matcher.matches()) {
-           System.out.println("匹配成功："+requestURI);
+        String url = "/api-sales/order/1";
+        String [] array = url.split("/");
+        for(String str:array){
+            System.out.println("print:"+str);
         }
     }
 
@@ -54,6 +52,17 @@ public class RegexTest {
             System.out.println("匹配成功："+evalueStr);
         }else {
             System.out.println("匹配失败："+evalueStr);
+        }
+    }
+
+    public void testRegexPath(){
+        String whiteApi = "/order/{orderId}";
+        String requestURI = "/order/1";
+        String regex = whiteApi.replaceAll("\\/\\{[a-zA-Z0-9]+\\}", "\\/[a-zA-Z0-9]+");
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(requestURI);
+        if (matcher.matches()) {
+            System.out.println("匹配成功："+requestURI);
         }
     }
 }

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Component
 public class AppProperties {
 
     @Autowired
@@ -17,7 +18,6 @@ public class AppProperties {
     public String getProperty(String key) {
         return environment.getProperty(key, String.class);
     }
-
     public String getInstanceId() {
         return environment.getProperty("eureka.instance.instance-id", String.class);
     }
@@ -33,4 +33,5 @@ public class AppProperties {
         }
         return whiteApiList;
     }
+
 }

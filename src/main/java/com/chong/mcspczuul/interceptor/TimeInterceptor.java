@@ -20,19 +20,19 @@ public class TimeInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         logger.info(message1+DateUtil.getDateTime());
-        logger.info(request.getParameter("param")+DateUtil.getDateTime());
+//        logger.info(request.getParameter("param")+DateUtil.getDateTime());
         return true;
     }
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable ModelAndView modelAndView) throws Exception {
-        logger.info(message2+DateUtil.getDateTime());
-        ObjectMapper mapper = new ObjectMapper();
-//        response.getWriter().println();
-        logger.info("PostHandle"+DateUtil.getDateTime());
+//        logger.info(message2+DateUtil.getDateTime());
+//        ObjectMapper mapper = new ObjectMapper();
+////        response.getWriter().println();
+//        logger.info("PostHandle"+DateUtil.getDateTime());
     }
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable Exception ex) throws Exception {
-        logger.info(message3+DateUtil.getDateTime());
-        logger.info(handler.toString()+DateUtil.getDateTime());
+//        logger.info(message3+DateUtil.getDateTime());
+//        logger.info(handler.toString()+DateUtil.getDateTime());
     }
 }

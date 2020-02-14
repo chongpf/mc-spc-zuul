@@ -3,7 +3,37 @@ spring:
   application:
     name: mc-spc-zuul
   profiles:
-    active: pro
+    active: dev
+  redis:
+    host: localhost
+    port: 6379
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 
 server:
   port: 8781
+
+servicelimit:
+  enable: true
+  defaultlimit: 50.00
+  list:
+    - serviceid: api-sales
+      servicerate: 50.00
+    - serviceid: api-order
+      servicerate: 50.00
+operationlimit:
+  enable: true
+  defaultLimit: 50.00
+  list:
+    - operationKey: normal
+      operationRate: 30
+    - operationKey: getOrder
+      operationRate: 40
+    - operationKey: createOrder
+      operationRate: 40
+servicedowngrade:
+  enable: true
+  serviceids: api-error,api-test

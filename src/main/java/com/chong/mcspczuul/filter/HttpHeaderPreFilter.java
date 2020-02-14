@@ -24,8 +24,11 @@ public class HttpHeaderPreFilter extends ZuulFilter {
 
     @Override
     public boolean shouldFilter() {
-        String shouldFilter = (String) RequestContext.getCurrentContext().get("shouldFilter");
-        return StringUtils.isBlank(shouldFilter) || Boolean.parseBoolean(shouldFilter);
+        boolean result = true;
+        if(RequestContext.getCurrentContext().containsKey("shouldFilter")){
+            result = (boolean)RequestContext.getCurrentContext().get("shouldFilter");
+        }
+        return result;
     }
 
     @Override

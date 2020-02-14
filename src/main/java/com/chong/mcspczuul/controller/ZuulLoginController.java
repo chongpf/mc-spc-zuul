@@ -1,6 +1,8 @@
 package com.chong.mcspczuul.controller;
 
+import com.chong.common.entity.ResponseData;
 import com.chong.common.util.JwtUtil;
+import com.chong.common.util.ResponseUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -25,9 +27,9 @@ public class ZuulLoginController {
             @ApiImplicitParam(name = "uid", paramType = "query",
                     dataType = "String", required = true)
     })
-    public String login(@RequestParam("uid") String uid) {
+    public ResponseData login(@RequestParam("uid") String uid) {
         //todo: 通过持久化数据判断用户ID是否存在，如果存在返回token
         String token = JwtUtil.getToken(uid);
-        return token;
+        return ResponseUtil.success(token);
     }
 }

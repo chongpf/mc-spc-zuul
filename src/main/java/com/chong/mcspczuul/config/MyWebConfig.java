@@ -8,12 +8,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class MyWebConfig implements WebMvcConfigurer {
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(
                 new TimeInterceptor()).addPathPatterns("/**").
-                excludePathPatterns("/**/login/**","/login", "/static/**");
+                excludePathPatterns("/**/login/**", "/login", "/static/**");
     }
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**")
@@ -21,4 +23,5 @@ public class MyWebConfig implements WebMvcConfigurer {
 
         WebMvcConfigurer.super.addResourceHandlers(registry);
     }
+
 }

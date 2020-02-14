@@ -20,7 +20,7 @@ public class LogPostFilter extends ZuulFilter {
 
     @Override
     public int filterOrder() {
-        return 4;
+        return 5;
     }
 
     @Override
@@ -31,11 +31,7 @@ public class LogPostFilter extends ZuulFilter {
     @Override
     public Object run() {
         String ctxmsg1="ctx-logPostFilter run ===";
-        RequestContext context = RequestContext.getCurrentContext();
-        String preHandleResult = (String)context.get("preFilterResult");
-        context.set("preFilterResult", preHandleResult+"==="+ctxmsg1);
-        logger.info(context.get("preFilterResult")+"--"+ DateUtil.getDateTime());
-
+        logger.info(ctxmsg1+"responseBody:"+RequestContext.getCurrentContext().getResponseBody());
         return null;
     }
 }
