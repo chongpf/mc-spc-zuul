@@ -2,7 +2,7 @@ package com.chong.mcspczuul.controller;
 
 import com.chong.common.entity.ResponseData;
 import com.chong.common.util.ResponseUtil;
-import com.chong.mcspczuul.annotation.SetOperationLimit;
+import com.chong.mcspczuul.annotation.ApiOperationLimit;
 import com.chong.mcspczuul.filter.LimitPreFilter;
 import com.chong.mcspczuul.property.AppProperties;
 import com.google.common.util.concurrent.RateLimiter;
@@ -27,7 +27,7 @@ public class SpcConfigPropertyController {
 
     @GetMapping("/property")
     @ApiOperation(value = "全部配置信息", notes = "git提交后，务必执行method=Post,/actuator/refresh",response = ResponseData.class)
-    @SetOperationLimit(value = "normal")
+    @ApiOperationLimit(value = "normal")
     public ResponseData getProperties() {
         logger.info("controller:requestpath=property run");
         return ResponseUtil.success(appProperties);
@@ -42,7 +42,7 @@ public class SpcConfigPropertyController {
     }
 
     @PostMapping("/property/limitrate/{rate}")
-    @SetOperationLimit(value = "normal")
+    @ApiOperationLimit(value = "normal")
     public ResponseData  setLimitRate(@PathVariable("rate") double rate){
         logger.info("controller:requestpath=property/limitrate/"+rate+" run");
         if(rate==0){rate=100;}
@@ -50,7 +50,7 @@ public class SpcConfigPropertyController {
         return ResponseUtil.success(rate);
     }
     @GetMapping("/property/limitrate")
-    @SetOperationLimit(value = "normal")
+    @ApiOperationLimit(value = "normal")
     public ResponseData  getLimitRate(){
         logger.info("controller:requestpath=property/limitrate/  run");
         return ResponseUtil.success(LimitPreFilter.rateLimiter);

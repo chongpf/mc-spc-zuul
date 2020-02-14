@@ -1,6 +1,6 @@
 package com.chong.mcspczuul.aspect;
 
-import com.chong.mcspczuul.annotation.SetOperationLimit;
+import com.chong.mcspczuul.annotation.ApiOperationLimit;
 import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -17,9 +17,9 @@ import java.util.concurrent.Semaphore;
 
 @Aspect
 @Component
-public class SetOperationLimitAspect {
+public class ApiOperationLimitAspect {
 
-    private static final Logger logger = LoggerFactory.getLogger(SetOperationLimitAspect.class);
+    private static final Logger logger = LoggerFactory.getLogger(ApiOperationLimitAspect.class);
 
     public static volatile Map<String, Semaphore> semphoreMap = new ConcurrentHashMap<>();
 
@@ -34,9 +34,9 @@ public class SetOperationLimitAspect {
         try {
             logger.info("enter api operation limit aspect");
             MethodSignature signature = (MethodSignature) proceedingJoinPoint.getSignature();
-            if (signature.getMethod().isAnnotationPresent(SetOperationLimit.class)) {
+            if (signature.getMethod().isAnnotationPresent(ApiOperationLimit.class)) {
                 logger.info("operation limit start:"+signature.getName());
-                SetOperationLimit annotaiton = signature.getMethod().getAnnotation(SetOperationLimit.class);
+                ApiOperationLimit annotaiton = signature.getMethod().getAnnotation(ApiOperationLimit.class);
                 String key = StringUtils.isBlank(annotaiton.value()) ? "defaultLimit" : annotaiton.value();
                 Semaphore semaphore = semphoreMap.get(key);
                 try {

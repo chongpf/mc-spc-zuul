@@ -1,7 +1,7 @@
 package com.chong.mcspczuul.config;
 
-import com.chong.mcspczuul.annotation.SetOperationLimit;
-import com.chong.mcspczuul.aspect.SetOperationLimitAspect;
+import com.chong.mcspczuul.annotation.ApiOperationLimit;
+import com.chong.mcspczuul.aspect.ApiOperationLimitAspect;
 import com.chong.mcspczuul.entity.OperationLimitEntity;
 import com.chong.mcspczuul.property.AppOperationLimitProperty;
 import org.apache.commons.lang.StringUtils;
@@ -21,12 +21,12 @@ import java.util.Map;
 import java.util.concurrent.Semaphore;
 
 @Component
-public class OperationLimitAppCtxAware implements ApplicationContextAware {
+public class ApiOperationLimitAppCtxAware implements ApplicationContextAware {
 
     @Autowired
     private AppOperationLimitProperty operationLimitProperty;
 
-    private static final Logger logger = LoggerFactory.getLogger(OperationLimitAppCtxAware.class);
+    private static final Logger logger = LoggerFactory.getLogger(ApiOperationLimitAppCtxAware.class);
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -53,8 +53,8 @@ public class OperationLimitAppCtxAware implements ApplicationContextAware {
                     continue;
                 }
                 for (Method method : methods) {
-                    if (method.isAnnotationPresent(SetOperationLimit.class)) {
-                        SetOperationLimit annotation = method.getAnnotation(SetOperationLimit.class);
+                    if (method.isAnnotationPresent(ApiOperationLimit.class)) {
+                        ApiOperationLimit annotation = method.getAnnotation(ApiOperationLimit.class);
                         String limitKey = StringUtils.isBlank(annotation.value()) ? "defaultLimit" : annotation.value();
                         double limitRate = operationLimitProperty.getDefaultLimit();
                         if (operationLimitEntityList != null) {
@@ -66,8 +66,8 @@ public class OperationLimitAppCtxAware implements ApplicationContextAware {
                                 }
                             }
                         }
-                        if (!SetOperationLimitAspect.semphoreMap.containsKey(limitKey)) {
-                            SetOperationLimitAspect.semphoreMap.put(limitKey, new Semaphore(new Double(limitRate).intValue()));
+                        if (!ApiOperationLimitAspect.semphoreMap.containsKey(limitKey)) {
+                            ApiOperationLimitAspect.semphoreMap.put(limitKey, new Semaphore(new Double(limitRate).intValue()));
                         }
                     }
                 }
